@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="logo.ico" type = "image/x-icon">
+    <link rel="icon" href="logo.ico"  type = "image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Mặt Hàng Circle K</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#" >Circle K</a>
+        
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 100px;">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+            <a style="color: white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Duyệt theo mã
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#" onclick="sortIdIncrease()">Mã tăng dần</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" onclick="sortIdReduction()">Mã giảm dần</a>
+            </div>
+          </li>
+      <li class="nav-item dropdown">
+        <a  style="color: white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Duyệt theo tên
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" onclick="sortNameIncrease()">A-Z</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" onclick="sortNameReduction()">Z-A</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a style="color: white" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Duyệt theo giá
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" onclick="sortGiaIncrease()">Giá tăng dần</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" onclick="sortGiaReduction()">Giá giảm dần</a>
+        </div>
+      </li>
+    </ul>
+      <div style="margin-right: 520px;">
+        <form class="form-inline">
+            <input class="form-control mr-sm-2 mb-1" id="searchValue" type="text" placeholder="Nhập mã cần tìm..." style="height: 35px;margin-top: 3px;">
+            <button class="btn btn-success my-2 my-sm-1 mb-1" type="button" onclick="search()" style="height: 35px">Tìm Kiếm</button>
+        </form>
+    </div>
+      <form class="form-inline my-2 my-lg-0"  >
+        <input class="form-control mr-sm-2" type="text" placeholder="Nhập mã cần xoá..." aria-label="remove" id="inputRemove" style="height: 35px;margin-left: -450px;">
+        <button class="btn btn-success my-2 my-sm-0" type="button" onclick="remove()">Xoá</button>
+      </form>
+    </div>
+    </nav>
+
+
+    <div id="content" style="margin-top: 70px;">
+    <div style=" display: flex; flex-direction: row-reverse;" > 
+        <div style="width: 20%; padding: 10px 10px 100px 10px; display: fixed; border-right: 1px solid #ddd; background: #fffe34;" >
+            <div>
+                <p style="font-size: 18px; padding: 5px; width: 100%; border-bottom:1px solid #ddd;font-weight: 600;">Thêm Sản Phẩm</p> 
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2 mb-1" id="addValueid"type="number" placeholder="Mã Sản Phẩm">
+                    <input class="form-control mr-sm-2 mb-1" id="addValueName"type="text" placeholder="Tên Sản Phẩm">
+                    <input class="form-control mr-sm-2 mb-1" id="addValueGia"type="number" placeholder="Giá Bán">
+                    <input class="form-control mr-sm-2 mb-1" id="addValueGn"type="number" placeholder="Giá nhập">
+                    <input class="form-control mr-sm-2 mb-1" id="addValueloai"type="text" placeholder="Loại sản phẩm">
+                    <input class="form-control mr-sm-2 mb-1" id="addValueNsx"type="text" placeholder="Nơi Sản Xuất">
+                    
+                    <button style="background-color: #f75959;"  class="btn btn-danger my-2 my-sm-1" type="button" onclick="addSp()">Thêm</button>
+                  </form>
+            </div>
+            
+            <div>
+                <p style="font-size: 18px; padding: 5px; width: 100%; border-bottom:1px solid #ddd;font-weight: 600;" id="result"></p>
+                <p id="resultSearchId"></p>
+                <p id="resultSearchName"></p>
+                <p id="resultSearchGia"></p>
+                <p id="resultSearchGn"></p>
+                <p id="resultSearchloai"></p>
+                <p id="resultSearchNsx"></p>
+            </div>
+        </div>
+        <div id="table">
+              
+            <table class="table table-hover table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Mã Sản Phẩm</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Giá bán</th>
+                        <th scope="col">Giá nhập</th>
+                        <th scope="col">Loại sản phẩm</th>
+                        <th scope="col">Nơi sản xuất</th>
+                    </tr>
+                </thead>
+                
+                <tbody id="list"></tbody>
+            </table>
+            <div style="display: flex; background-color: #f99c26;margin-top: -20px;height: 45px;">
+              <p style="margin-left: 190px; margin-top: 10px;" >Số Lượng Mặt Hàng:</p>
+              <p id="sl" style="margin-left: 280px; margin-top: 10px;"></p>
+              <p style="margin: auto;margin-left: 120px;" >Tổng giá trị kho hàng:</p>
+              <p id="t" style="margin: auto"></p>
+            </div>    
+    </div>
+</div>
+</body>
+<script src="index.js"></script>
+</html>
